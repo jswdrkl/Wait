@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="mr" class="dark">
+<html lang="mr" class="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>वाट पहावी लागण्यातली मज्जा..</title>
-  
-  <!-- IBM Plex Sans & IBM Plex Sans Devanagari from Google Fonts -->
+
+  <!-- Google Fonts: IBM Plex Sans & IBM Plex Sans Devanagari -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -21,19 +21,10 @@
             marathi: ['"IBM Plex Sans Devanagari"', '"IBM Plex Sans"', 'sans-serif'],
           },
           colors: {
-            sand: {
-              50: '#FDFBF7',
-              100: '#F7F2E9',
-              200: '#EDE4D3',
-              800: '#2C2723',
-              900: '#1A1715',
-              950: '#0F0E0D',
-            },
-            amberAccent: {
-              400: '#F59E0B',
-              500: '#D97706',
-              600: '#B45309',
-            }
+            warmpaper: '#FAF7F2',
+            cardlight: '#FFFFFF',
+            darkbg: '#14181E',
+            carddark: '#1C232D',
           }
         }
       }
@@ -41,446 +32,414 @@
   </script>
 
   <style>
-    * {
+    body {
       font-family: 'IBM Plex Sans Devanagari', 'IBM Plex Sans', sans-serif;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Strict no-hyphenation and proper word-keeping to prevent broken words */
-    .prose-marathi {
+    /* Justified text styling ensuring Marathi compound words never break mid-word */
+    .essay-body p {
       text-align: justify;
       text-justify: inter-word;
+      word-break: normal;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
       hyphens: none;
       -webkit-hyphens: none;
-      word-break: keep-all;
-      overflow-wrap: break-word;
+      line-height: 2.05;
+      margin-bottom: 1.5rem;
+      font-size: 1.13rem;
+      letter-spacing: 0.012em;
     }
 
-    /* Subtle Keyword Highlight styling */
-    .kw {
-      font-weight: 600;
-      display: inline;
-      padding: 0.08em 0.35em;
-      border-radius: 0.375rem;
-      transition: all 0.25s ease;
+    @media (max-width: 640px) {
+      .essay-body p {
+        font-size: 1.05rem;
+        line-height: 1.95;
+        margin-bottom: 1.35rem;
+      }
     }
 
-    html.dark .kw {
-      background-color: rgba(245, 158, 11, 0.16);
-      color: #FCD34D;
-      border-bottom: 1.5px solid rgba(245, 158, 11, 0.4);
-    }
-
-    html:not(.dark) .kw {
-      background-color: rgba(217, 119, 6, 0.12);
-      color: #92400E;
-      border-bottom: 1.5px solid rgba(217, 119, 6, 0.35);
-    }
-
-    .kw:hover {
-      filter: brightness(1.1);
-    }
-
-    /* SVG Keyframe animations */
+    /* Subtle SVG float & glow keyframe animations */
     @keyframes gentlePulse {
-      0%, 100% { opacity: 0.85; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.03); }
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-4px) rotate(0.6deg); }
     }
 
-    @keyframes rotateClock {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+    @keyframes rotateClockHand {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
-    @keyframes floatClouds {
-      0% { transform: translateX(-30px); }
-      50% { transform: translateX(30px); }
-      100% { transform: translateX(-30px); }
+    @keyframes sandDrop {
+      0% { transform: translateY(-8px); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(14px); opacity: 0.1; }
     }
 
-    @keyframes trainGlide {
-      0% { transform: translateX(-120px); opacity: 0.3; }
-      15% { opacity: 0.95; }
-      85% { opacity: 0.95; }
-      100% { transform: translateX(200px); opacity: 0.3; }
+    @keyframes steamDrift {
+      0% { transform: translateY(0) scaleX(1); opacity: 0.7; }
+      50% { transform: translateY(-7px) scaleX(1.15); opacity: 0.4; }
+      100% { transform: translateY(-14px) scaleX(0.85); opacity: 0; }
     }
 
-    @keyframes starTwinkle {
-      0%, 100% { opacity: 0.25; }
-      50% { opacity: 0.95; }
+    .svg-anim-float {
+      animation: gentlePulse 6s ease-in-out infinite;
+      transform-origin: center;
     }
 
-    @keyframes steamRise {
-      0% { transform: translateY(0) scale(0.9); opacity: 0.7; }
-      100% { transform: translateY(-16px) scale(1.3); opacity: 0; }
+    .svg-anim-spin-minute {
+      transform-origin: 150px 115px;
+      animation: rotateClockHand 18s linear infinite;
     }
 
-    .anim-pulse { animation: gentlePulse 6s ease-in-out infinite; }
-    .anim-clock-hour { transform-origin: 340px 110px; animation: rotateClock 40s linear infinite; }
-    .anim-clock-minute { transform-origin: 340px 110px; animation: rotateClock 12s linear infinite; }
-    .anim-clouds { animation: floatClouds 22s ease-in-out infinite; }
-    .anim-train { animation: trainGlide 16s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
-    .anim-twinkle-1 { animation: starTwinkle 3s ease-in-out infinite; }
-    .anim-twinkle-2 { animation: starTwinkle 4.5s ease-in-out infinite 1.2s; }
-    .anim-steam { animation: steamRise 3s ease-out infinite; transform-origin: center; }
+    .svg-anim-spin-hour {
+      transform-origin: 150px 115px;
+      animation: rotateClockHand 72s linear infinite;
+    }
 
-    /* Toast transition */
-    #toast {
-      transition: opacity 0.3s ease, transform 0.3s ease;
+    .svg-sand-particle-1 {
+      animation: sandDrop 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    .svg-sand-particle-2 {
+      animation: sandDrop 2.2s 0.7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    .svg-sand-particle-3 {
+      animation: sandDrop 2.2s 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    .svg-steam-1 {
+      animation: steamDrift 3.5s ease-out infinite;
+    }
+    .svg-steam-2 {
+      animation: steamDrift 3.5s 1.75s ease-out infinite;
+    }
+
+    /* Drop-cap for the very first letter */
+    .first-para::first-letter {
+      float: left;
+      font-size: 3.25rem;
+      line-height: 0.95;
+      padding-top: 4px;
+      padding-right: 12px;
+      padding-bottom: 2px;
+      font-weight: 700;
+      color: #ea580c;
+    }
+    .dark .first-para::first-letter {
+      color: #fb923c;
+    }
+
+    /* Toast notification for share/copy */
+    #shareToast {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
   </style>
 </head>
 
-<body class="bg-sand-50 text-sand-800 dark:bg-sand-950 dark:text-zinc-200 transition-colors duration-300 min-h-screen antialiased flex flex-col items-center">
+<body class="bg-warmpaper text-stone-800 dark:bg-darkbg dark:text-stone-200 transition-colors duration-300 min-h-screen selection:bg-amber-200 dark:selection:bg-amber-900 flex flex-col justify-between">
 
-  <header class="sticky top-0 z-50 w-full backdrop-blur-md bg-sand-50/85 dark:bg-sand-950/85 border-b border-sand-200/70 dark:border-zinc-800/80 transition-colors duration-300">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-      <div class="flex items-center space-x-2">
-        <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping"></span>
-        <span class="text-xs sm:text-sm font-medium tracking-wide text-zinc-500 dark:text-zinc-400">ललित निबंध</span>
-      </div>
+  <!-- Top Action Bar (Clean, no unnecessary headers) -->
+  <header class="w-full max-w-4xl mx-auto px-5 pt-6 sm:pt-8 flex justify-end items-center gap-3">
+    <!-- Share Button -->
+    <button 
+      id="shareBtn" 
+      type="button" 
+      aria-label="Share" 
+      class="group inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-stone-300 dark:border-stone-700 bg-white/80 dark:bg-carddark/80 backdrop-blur-sm shadow-sm hover:border-amber-400 dark:hover:border-amber-500 hover:shadow-md transition-all duration-200 text-stone-700 dark:text-stone-300 active:scale-95"
+    >
+      <svg class="w-4 h-4 transition-transform group-hover:scale-110 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
+      </svg>
+      <span class="text-sm font-medium">शेअर</span>
+    </button>
 
-      <div class="flex items-center space-x-2.5">
-        <!-- Share Button -->
-        <button id="shareBtn" aria-label="Share page" class="p-2.5 rounded-xl border border-sand-200 dark:border-zinc-800 hover:bg-sand-100 dark:hover:bg-zinc-800/80 text-zinc-700 dark:text-zinc-200 transition duration-200 shadow-sm flex items-center justify-center group focus:outline-none focus:ring-2 focus:ring-amber-500/50">
-          <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-          </svg>
-        </button>
-
-        <!-- Theme Toggle Button -->
-        <button id="themeToggleBtn" aria-label="Toggle light/dark mode" class="p-2.5 rounded-xl border border-sand-200 dark:border-zinc-800 hover:bg-sand-100 dark:hover:bg-zinc-800/80 text-zinc-700 dark:text-zinc-200 transition duration-200 shadow-sm flex items-center justify-center group focus:outline-none focus:ring-2 focus:ring-amber-500/50">
-          <!-- Sun Icon (shown in dark mode) -->
-          <svg id="sunIcon" class="w-5 h-5 hidden group-hover:rotate-45 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-          </svg>
-          <!-- Moon Icon (shown in light mode) -->
-          <svg id="moonIcon" class="w-5 h-5 hidden group-hover:-rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-          </svg>
-        </button>
-      </div>
-    </div>
+    <!-- Theme Toggle Button -->
+    <button 
+      id="themeToggleBtn" 
+      type="button" 
+      aria-label="Toggle Theme" 
+      class="inline-flex items-center justify-center p-2 rounded-full border border-stone-300 dark:border-stone-700 bg-white/80 dark:bg-carddark/80 backdrop-blur-sm shadow-sm hover:border-amber-400 dark:hover:border-amber-500 hover:shadow-md transition-all duration-200 text-stone-700 dark:text-stone-300 active:scale-95"
+    >
+      <!-- Sun Icon (shown in dark mode) -->
+      <svg id="sunIcon" class="w-4 h-4 hidden text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="5"></circle>
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+      </svg>
+      <!-- Moon Icon (shown in light mode) -->
+      <svg id="moonIcon" class="w-4 h-4 text-stone-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+      </svg>
+    </button>
   </header>
 
-  <main class="w-full max-w-3xl px-4 sm:px-6 md:px-8 py-8 sm:py-12 flex-1">
+  <main class="w-full max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-10 flex-grow">
     
-    <!-- Hero Vector Artwork illustrating the essence of waiting with calmness & Deccan Queen motif -->
-    <div class="w-full mb-8 rounded-2xl overflow-hidden border border-sand-200/80 dark:border-zinc-800/90 shadow-sm bg-gradient-to-b from-amber-50/70 to-sand-100/50 dark:from-zinc-900/90 dark:to-sand-950 p-2 sm:p-4">
-      <svg class="w-full h-auto max-h-72 rounded-xl" viewBox="0 0 700 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="skyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#1E293B" class="dark:stop-color-[#090D16]" />
-            <stop offset="50%" stop-color="#312E81" class="dark:stop-color-[#1E1B4B]" />
-            <stop offset="100%" stop-color="#78350F" class="dark:stop-color-[#451A03]" />
-          </linearGradient>
-          <linearGradient id="haloGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.35" />
-            <stop offset="100%" stop-color="#F59E0B" stop-opacity="0" />
-          </linearGradient>
-          <linearGradient id="trainGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#D97706" />
-            <stop offset="50%" stop-color="#F59E0B" />
-            <stop offset="100%" stop-color="#FBBF24" />
-          </linearGradient>
-          <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="6" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-          </filter>
-        </defs>
-
-        <!-- Dynamic Sky Backdrop -->
-        <rect width="700" height="320" rx="14" fill="url(#skyGrad)" />
-
-        <!-- Twinkling Stars / Reflections in the Evening Wait -->
-        <g class="anim-twinkle-1">
-          <circle cx="95" cy="45" r="2.2" fill="#FEF08A" />
-          <circle cx="210" cy="65" r="1.5" fill="#FEF08A" />
-          <circle cx="480" cy="50" r="2" fill="#FEF08A" />
-          <circle cx="610" cy="75" r="1.8" fill="#FEF08A" />
-          <circle cx="150" cy="115" r="1.2" fill="#FFFFFF" />
-        </g>
-        <g class="anim-twinkle-2">
-          <circle cx="120" cy="80" r="1.8" fill="#FDE68A" />
-          <circle cx="270" cy="40" r="2" fill="#FFFFFF" />
-          <circle cx="560" cy="35" r="2.5" fill="#FEF08A" />
-          <circle cx="640" cy="110" r="1.5" fill="#FDE68A" />
-        </g>
-
-        <!-- Subtle Floating Clouds / Ghats Mist -->
-        <g class="anim-clouds" opacity="0.45">
-          <path d="M40 90 Q 70 65 110 80 Q 140 60 180 85 Q 210 100 180 110 L 50 110 Z" fill="#94A3B8" />
-          <path d="M480 110 Q 520 85 570 100 Q 610 80 650 105 L 660 120 L 470 120 Z" fill="#94A3B8" />
-        </g>
-
-        <!-- Distant Mountains (Bhor Ghat / Lonavala Landscape) -->
-        <path d="M0 240 L 90 190 L 190 235 L 320 180 L 460 230 L 590 175 L 700 225 L 700 320 L 0 320 Z" fill="#0F172A" opacity="0.65" />
-        <path d="M0 260 L 130 225 L 260 255 L 410 215 L 530 250 L 650 210 L 700 245 L 700 320 L 0 320 Z" fill="#0B1120" opacity="0.85" />
-
-        <!-- Distant Railway Viaduct & Tracks -->
-        <line x1="0" y1="268" x2="700" y2="268" stroke="#475569" stroke-width="3.5" stroke-dasharray="8,4" />
-        <line x1="0" y1="272" x2="700" y2="272" stroke="#334155" stroke-width="2" />
-
-        <!-- Passing Deccan Queen Train Representation -->
-        <g class="anim-train">
-          <!-- Train Carriage Bodies -->
-          <rect x="220" y="254" width="75" height="13" rx="3" fill="url(#trainGrad)" />
-          <rect x="300" y="254" width="75" height="13" rx="3" fill="#D97706" />
-          <rect x="380" y="254" width="70" height="13" rx="3" fill="#B45309" />
-          <!-- Windows Glowing -->
-          <rect x="225" y="257" width="8" height="5" rx="1" fill="#FEF3C7" />
-          <rect x="237" y="257" width="8" height="5" rx="1" fill="#FEF3C7" />
-          <rect x="249" y="257" width="8" height="5" rx="1" fill="#FEF3C7" />
-          <rect x="261" y="257" width="8" height="5" rx="1" fill="#FEF3C7" />
-          <rect x="273" y="257" width="8" height="5" rx="1" fill="#FEF3C7" />
-
-          <rect x="305" y="257" width="8" height="5" rx="1" fill="#FEF3C7" />
-          <rect x="317" y="257" width="8" height="5" rx="1" fill="#FEF3C7" />
-          <rect x="329" y="257" width="8" height="5" rx="1" fill="#FEF3C7" />
-          <rect x="341" y="257" width="8" height="5" rx="1" fill="#FEF3C7" />
-
-          <rect x="385" y="257" width="8" height="5" rx="1" fill="#FEF3C7" />
-          <rect x="397" y="257" width="8" height="5" rx="1" fill="#FEF3C7" />
-          <rect x="409" y="257" width="8" height="5" rx="1" fill="#FEF3C7" />
-          <!-- Headlight Beam -->
-          <polygon points="450,260 560,250 560,274" fill="#FEF08A" opacity="0.35" />
-        </g>
-
-        <!-- Giant Serene Clock Face representing the philosophical passage of Time -->
-        <g class="anim-pulse" opacity="0.85">
-          <circle cx="340" cy="110" r="58" stroke="#F59E0B" stroke-width="2.5" fill="none" opacity="0.4" />
-          <circle cx="340" cy="110" r="52" stroke="#FEF3C7" stroke-width="1" stroke-dasharray="4,6" fill="none" opacity="0.5" />
-          <!-- Hour markers -->
-          <circle cx="340" cy="62" r="2.5" fill="#F59E0B" />
-          <circle cx="388" cy="110" r="2.5" fill="#F59E0B" />
-          <circle cx="340" cy="158" r="2.5" fill="#F59E0B" />
-          <circle cx="292" cy="110" r="2.5" fill="#F59E0B" />
-        </g>
+    <!-- Title Illustration Card -->
+    <div class="flex justify-center mb-7">
+      <div class="w-full max-w-[420px] rounded-3xl p-3 bg-gradient-to-br from-amber-50/80 via-orange-50/60 to-rose-50/70 dark:from-stone-900/80 dark:via-neutral-900/60 dark:to-amber-950/30 border border-amber-100/80 dark:border-stone-800 shadow-sm flex items-center justify-center">
         
-        <!-- Rotating Clock Hands -->
-        <line x1="340" y1="110" x2="340" y2="82" stroke="#FBBF24" stroke-width="3" stroke-linecap="round" class="anim-clock-hour" />
-        <line x1="340" y1="110" x2="368" y2="110" stroke="#FDE68A" stroke-width="2" stroke-linecap="round" class="anim-clock-minute" />
-        <circle cx="340" cy="110" r="3.5" fill="#F59E0B" />
+        <!-- Animated Colorful SVG Graphic depicting the sweet art of waiting (clock, hourglass, warm chai & peaceful journey) -->
+        <svg viewBox="0 0 380 230" class="w-full h-auto svg-anim-float select-none drop-shadow-sm" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="bgGrad" x1="20" y1="20" x2="360" y2="210" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#FEF3C7" stop-opacity="0.9" />
+              <stop offset="0.5" stop-color="#FFEDD5" stop-opacity="0.75" />
+              <stop offset="1" stop-color="#FCE7F3" stop-opacity="0.8" />
+            </linearGradient>
 
-        <!-- Warm Golden Glow on the Waiting Station Bench -->
-        <circle cx="140" cy="275" r="90" fill="url(#haloGrad)" />
+            <linearGradient id="dialGrad" x1="90" y1="55" x2="210" y2="175" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#FFFFFF" />
+              <stop offset="1" stop-color="#FFFBEB" />
+            </linearGradient>
 
-        <!-- Station Platform & Sitting Figure on Bench in Thoughtful Pause -->
-        <path d="M0 290 L 700 290 L 700 320 L 0 320 Z" fill="#18181B" />
-        <line x1="0" y1="290" x2="700" y2="290" stroke="#CA8A04" stroke-width="2.5" />
+            <linearGradient id="cupGrad" x1="250" y1="110" x2="330" y2="190" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F97316" />
+              <stop offset="1" stop-color="#DC2626" />
+            </linearGradient>
 
-        <!-- Station Bench Silhouette -->
-        <rect x="85" y="272" width="95" height="4" rx="2" fill="#A1A1AA" />
-        <line x1="95" y1="274" x2="95" y2="292" stroke="#71717A" stroke-width="3.5" />
-        <line x1="170" y1="274" x2="170" y2="292" stroke="#71717A" stroke-width="3.5" />
-        <line x1="88" y1="260" x2="88" y2="274" stroke="#71717A" stroke-width="3" />
-        <rect x="85" y="258" width="95" height="4" rx="2" fill="#A1A1AA" />
+            <linearGradient id="accentSun" x1="40" y1="30" x2="100" y2="90" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#FBBF24" />
+              <stop offset="1" stop-color="#F59E0B" />
+            </linearGradient>
 
-        <!-- Solitary peaceful contemplative person waiting on bench -->
-        <!-- Torso -->
-        <path d="M125 254 C 120 256, 118 266, 122 276 L 136 276 C 140 266, 137 256, 133 254 Z" fill="#FBBF24" />
-        <!-- Head tilted peacefully -->
-        <circle cx="129" cy="246" r="6.5" fill="#FBBF24" />
-        <!-- Legs seated -->
-        <path d="M122 276 L 122 288 L 115 288" stroke="#FBBF24" stroke-width="3" stroke-linecap="round" fill="none" />
-        <path d="M130 276 L 130 288 L 138 288" stroke="#FBBF24" stroke-width="3" stroke-linecap="round" fill="none" />
-        
-        <!-- Warm Cup of Tea / Coffee with subtle steam -->
-        <rect x="145" y="267" width="6" height="6" rx="1.5" fill="#FCD34D" />
-        <g class="anim-steam">
-          <path d="M148 265 Q 146 261 148 257" stroke="#FEF08A" stroke-width="1.2" stroke-linecap="round" fill="none" />
-        </g>
+            <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
 
-        <!-- Antique Hanging Platform Lamp with gentle amber light -->
-        <path d="M60 220 L 75 220 L 75 240" stroke="#71717A" stroke-width="2.5" fill="none" />
-        <polygon points="68,240 82,240 86,248 64,248" fill="#F59E0B" />
-        <circle cx="75" cy="252" r="6" fill="#FEF08A" filter="url(#glow)" />
-        <circle cx="75" cy="252" r="2.5" fill="#FFF" />
-      </svg>
+          <!-- Soft Backdrop Shape -->
+          <rect x="25" y="20" width="330" height="190" rx="36" fill="url(#bgGrad)" />
+
+          <!-- Subtle Scenic Railway Track Horizon (representing Deccan Queen & patient travel) -->
+          <path d="M 45 185 Q 190 165 335 185" stroke="#D97706" stroke-width="2.5" stroke-dasharray="5 4" opacity="0.45" />
+          <path d="M 45 192 Q 190 172 335 192" stroke="#D97706" stroke-width="2.5" stroke-dasharray="5 4" opacity="0.35" />
+
+          <!-- Sun of Patience & Warmth -->
+          <circle cx="70" cy="65" r="26" fill="url(#accentSun)" opacity="0.85" filter="url(#softGlow)" />
+          <circle cx="70" cy="65" r="32" stroke="#FDE68A" stroke-width="2" stroke-dasharray="3 3" opacity="0.6" />
+
+          <!-- Clock Face (Time slowing down comfortably) -->
+          <circle cx="150" cy="115" r="54" fill="url(#dialGrad)" stroke="#F59E0B" stroke-width="3.5" filter="url(#softGlow)" />
+          <circle cx="150" cy="115" r="46" stroke="#FEF3C7" stroke-width="1.5" />
+          
+          <!-- Clock Ticks -->
+          <circle cx="150" cy="69" r="2.5" fill="#D97706" />
+          <circle cx="196" cy="115" r="2.5" fill="#D97706" />
+          <circle cx="150" cy="161" r="2.5" fill="#D97706" />
+          <circle cx="104" cy="115" r="2.5" fill="#D97706" />
+
+          <!-- Clock Hands (Smooth infinite animated rotation) -->
+          <!-- Hour Hand -->
+          <g class="svg-anim-spin-hour">
+            <line x1="150" y1="115" x2="150" y2="88" stroke="#B45309" stroke-width="3.5" stroke-linecap="round" />
+          </g>
+          <!-- Minute Hand -->
+          <g class="svg-anim-spin-minute">
+            <line x1="150" y1="115" x2="175" y2="115" stroke="#EA580C" stroke-width="2.5" stroke-linecap="round" />
+          </g>
+          <circle cx="150" cy="115" r="4.5" fill="#78350F" />
+
+          <!-- Hourglass Motif (Golden waiting sands) -->
+          <g transform="translate(202, 66)">
+            <!-- Glass Contours -->
+            <path d="M 12 10 L 40 10 L 29 32 L 40 54 L 12 54 L 23 32 Z" fill="#FEF08A" fill-opacity="0.5" stroke="#D97706" stroke-width="2" stroke-linejoin="round" />
+            <line x1="9" y1="10" x2="43" y2="10" stroke="#B45309" stroke-width="3" stroke-linecap="round" />
+            <line x1="9" y1="54" x2="43" y2="54" stroke="#B45309" stroke-width="3" stroke-linecap="round" />
+            <!-- Upper Sand -->
+            <path d="M 16 14 Q 26 26 36 14 Z" fill="#F59E0B" />
+            <!-- Falling Sand Particles -->
+            <circle class="svg-sand-particle-1" cx="26" cy="27" r="1.5" fill="#D97706" />
+            <circle class="svg-sand-particle-2" cx="26" cy="32" r="1.2" fill="#D97706" />
+            <circle class="svg-sand-particle-3" cx="26" cy="37" r="1.5" fill="#F59E0B" />
+            <!-- Lower Sand Pile -->
+            <path d="M 17 50 Q 26 42 35 50 Z" fill="#F59E0B" />
+          </g>
+
+          <!-- Steaming Chai Cup (The sweet leisure of a wait) -->
+          <g transform="translate(262, 102)">
+            <!-- Saucer -->
+            <ellipse cx="32" cy="62" rx="30" ry="7" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="2" />
+            <ellipse cx="32" cy="61" rx="22" ry="4" fill="#FED7AA" />
+            <!-- Cup Body -->
+            <path d="M 10 24 C 11 50 18 55 32 55 C 46 55 53 50 54 24 Z" fill="url(#cupGrad)" stroke="#B91C1C" stroke-width="2" />
+            <!-- Cup Handle -->
+            <path d="M 52 30 C 62 30 62 46 50 47" fill="none" stroke="#DC2626" stroke-width="2.8" stroke-linecap="round" />
+            <!-- Tea Surface -->
+            <ellipse cx="32" cy="24" rx="21" ry="6" fill="#7C2D12" />
+            <ellipse cx="32" cy="24" rx="17" ry="4.5" fill="#9A3412" />
+            
+            <!-- Floating Steam Paths -->
+            <path class="svg-steam-1" d="M 26 16 C 24 10 30 7 28 0" stroke="#F97316" stroke-width="2" stroke-linecap="round" fill="none" />
+            <path class="svg-steam-2" d="M 37 18 C 39 12 33 8 36 2" stroke="#FB923C" stroke-width="2" stroke-linecap="round" fill="none" />
+          </g>
+
+          <!-- Gentle Sparkling Stars -->
+          <path d="M 85 145 Q 85 152 78 152 Q 85 152 85 159 Q 85 152 92 152 Q 85 152 85 145 Z" fill="#F59E0B" />
+          <path d="M 230 40 Q 230 45 225 45 Q 230 45 230 50 Q 230 45 235 45 Q 230 45 230 40 Z" fill="#FB923C" />
+          <path d="M 315 88 Q 315 92 311 92 Q 315 92 315 96 Q 315 92 319 92 Q 315 92 315 88 Z" fill="#F59E0B" opacity="0.8" />
+        </svg>
+
+      </div>
     </div>
 
-    <article class="space-y-6 sm:space-y-7 leading-relaxed sm:leading-loose text-base sm:text-lg md:text-[1.125rem]">
+    <!-- Article Document Container -->
+    <article class="bg-cardlight dark:bg-carddark rounded-3xl p-6 sm:p-12 md:p-16 shadow-[0_4px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.3)] border border-stone-200/80 dark:border-stone-800 transition-colors duration-300">
       
-      <!-- Original Document Title -->
-      <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-amber-600 dark:text-amber-400 pb-2 border-b border-sand-200 dark:border-zinc-800">
+      <!-- Document Title -->
+      <h1 class="text-center font-bold text-2xl sm:text-3xl md:text-4xl text-stone-900 dark:text-stone-100 tracking-normal mb-8 sm:mb-12 leading-relaxed sm:leading-snug">
         वाट पहावी लागण्यातली मज्जा..
       </h1>
 
-      <!-- Paragraph 1 -->
-      <p class="prose-marathi">
-        आपल्या सर्वांच्या आयुष्यात <span class="kw">‘वाट पहावी लागण्या’चे प्रसंग</span> येत असतात. फोन केल्यावर पलिकडच्या व्यक्तीचे ‘हॅलो’ ऐकू येईपर्यंत, ट्रॅफिकमधे, बसमधे, रेल्वेत, प्लॅटफॉर्मवर, विमानात, एअरकंडीशंड लाऊंजमधे, दवाखान्यात, तिकीटाच्या रांगेत, बँकेच्या आत किंवा एटीएमच्या दारात, शाळा, कॉलेज, कचेरीमधे फॉर्म/फी भरण्याच्या, मॉलमध्ये बिलिंगसाठीच्या ‘क्यू’मधे, रेस्टॉरंटमधे जाण्यापूर्वी बाहेर पार्किंग आणि आत टेबल मिळण्यासाठी; एक ना दोन.
-      </p>
+      <!-- Document Text Content -->
+      <div class="essay-body text-stone-700 dark:text-stone-300 font-normal">
+        <p class="first-para">
+          आपल्या सर्वांच्या आयुष्यात ‘वाट पहावी लागण्या’चे प्रसंग येत असतात. फोन केल्यावर पलिकडच्या व्यक्तीचे ‘हॅलो’ ऐकू येईपर्यंत, ट्रॅफिकमधे, बसमधे, रेल्वेत, प्लॅटफॉर्मवर, विमानात, एअरकंडीशंड लाऊंजमधे, दवाखान्यात, तिकीटाच्या रांगेत, बँकेच्या आत किंवा एटीएमच्या दारात, शाळा, कॉलेज, कचेरीमधे फॉर्म/फी भरण्याच्या, मॉलमध्ये बिलिंगसाठीच्या ‘क्यू’मधे, रेस्टॉरंटमधे जाण्यापूर्वी बाहेर पार्किंग आणि आत टेबल मिळण्यासाठी; एक ना दोन.
+        </p>
 
-      <!-- Paragraph 2 -->
-      <p class="prose-marathi">
-        सध्याच्या ऑनलाईन जगात ‘हेल्पलाइन’ला फोन केल्यावर देखील ‘कृपया प्रतीक्षा करा, आपण रांगेत आहात’ किंवा ‘thank you for calling, however all our executives are currently busy attending calls, please stay on the line’ हे गोssड बोलणे आणि वेटिंग-म्युझिक ऐकत स्वतःच्या घरात कोचावर रेलून बसलेले असतानाही कानाला फोन लावून <span class="kw">‘वाट पहावी लागते’</span> हे प्रत्येकाने अनुभवले आहे.
-      </p>
+        <p>
+          सध्याच्या ऑनलाईन जगात ‘हेल्पलाइन’ला फोन केल्यावर देखील ‘कृपया प्रतीक्षा करा, आपण रांगेत आहात’ किंवा ‘thank you for calling, however all our executives are currently busy attending calls, please stay on the line’ हे गोssड बोलणे आणि वेटिंग-म्युझिक ऐकत स्वतःच्या घरात कोचावर रेलून बसलेले असतानाही कानाला फोन लावून ‘वाट पहावी लागते’ हे प्रत्येकाने अनुभवले आहे.
+        </p>
 
-      <!-- Paragraph 3 -->
-      <p class="prose-marathi">
-        असे थांबावे लागले की मग ती मिनिटे तशी संख्येने खूप नसली तरी त्यांना <span class="kw">‘ताटकळणे’</span> ही उपाधी सत्वर चिकटते आणि मग साठच्या पटीतले ते सेकंद बऱ्याच जणांना युगासमान भासू लागतात. मंडळी ‘बोअर’ होऊन फोनवर डूम-स्क्रोलिंग करण्यात, उगीच फोन किंवा मेसेजिंग करण्यात, त्या कोलाहलातही सेवा देणाऱ्याच्या नावाने खडे फोडण्यात मग्न होतात. प्रसंगी वादाचे, हातघाईचे प्रकार घडतात. वैयक्तिक आणि सामाजिक स्वास्थ्य नासून जाते.
-      </p>
+        <p>
+          असे थांबावे लागले की मग ती मिनिटे तशी संख्येने खूप नसली तरी त्यांना ‘ताटकळणे’ ही उपाधी सत्वर चिकटते आणि मग साठच्या पटीतले ते सेकंद बऱ्याच जणांना युगासमान भासू लागतात. मंडळी ‘बोअर’ होऊन फोनवर डूम-स्क्रोलिंग करण्यात, उगीच फोन किंवा मेसेजिंग करण्यात, त्या कोलाहलातही सेवा देणाऱ्याच्या नावाने खडे फोडण्यात मग्न होतात. प्रसंगी वादाचे, हातघाईचे प्रकार घडतात. वैयक्तिक आणि सामाजिक स्वास्थ्य नासून जाते.
+        </p>
 
-      <!-- Paragraph 4 -->
-      <p class="prose-marathi">
-        पण असे थांबून राहावे लागणे काही नेहमीच वाईट नसते. एका वेगळ्या दृष्टिकोनातून पहिले तर बऱ्याचदा ती लौकिकअर्थाने ‘वाया जाणारी’ मिनिटेच मानसिक स्वास्थ्याच्या प्रवासात अचानक हाती लागलेले <span class="kw">स्वनियंत्रण</span> शिकवून जाणारे सोनेरी क्षण ठरू शकतात.
-      </p>
+        <p>
+          पण असे थांबून राहावे लागणे काही नेहमीच वाईट नसते. एका वेगळ्या दृष्टिकोनातून पहिले तर बऱ्याचदा ती लौकिकअर्थाने ‘वाया जाणारी’ मिनिटेच मानसिक स्वास्थ्याच्या प्रवासात अचानक हाती लागलेले स्वनियंत्रण शिकवून जाणारे सोनेरी क्षण ठरू शकतात.
+        </p>
 
-      <!-- Paragraph 5 -->
-      <p class="prose-marathi">
-        एकट्याने वाट पहावी लागत असेल तर रोजच्या धकाधकीत ठरवूनही न जमणारे <span class="kw">introspection</span> करण्यासाठी हे होणारे ‘वेटिंग’ कामी आणता येते; नव्हे आणावेच. कारण अवास्तव घाई-चिडचिड करण्याने हाती नक्की काय लागते हे शिकवणारी; आपण कसे वागतो आणि कसे वागू नये हे सोदाहरण दाखवणारी नानाविविध जिवंत उदाहरणे याची देही याची डोळा बघत <span class="kw">स्व-शिक्षणाची नामी संधी</span> हीच ‘ताटकळ’ अवचित पुढ्यात आणते.
-      </p>
+        <p>
+          एकट्याने वाट पहावी लागत असेल तर रोजच्या धकाधकीत ठरवूनही न जमणारे introspection करण्यासाठी हे होणारे ‘वेटिंग’ कामी आणता येते; नव्हे आणावेच. कारण अवास्तव घाई-चिडचिड करण्याने हाती नक्की काय लागते हे शिकवणारी; आपण कसे वागतो आणि कसे वागू नये हे सोदाहरण दाखवणारी नानाविविध जिवंत उदाहरणे याची देही याची डोळा बघत स्व-शिक्षणाची नामी संधी हीच ‘ताटकळ’ अवचित पुढ्यात आणते.
+        </p>
 
-      <!-- Paragraph 6 -->
-      <p class="prose-marathi">
-        एकत्र सहलीला निघाल्यावर प्रत्यक्ष <span class="kw">‘डेस्टीनेशन’</span>पेक्षा काहीबाही कारणास्तव लांबलेल्या आणि विनाकारण ‘वाट पहात’ कराव्या लागलेल्या प्रवासात थट्टामस्करी करण्यात ‘वाया’ गेलेला वेळच पुढे जाऊन जास्त आठवणीत राहतो. नातेसंबंध टिकून ठेवण्यात, दृढ करण्यात हेच हलकेफुलके क्षण मोलाचे ठरतात.
-      </p>
+        <p>
+          एकत्र सहलीला निघाल्यावर प्रत्यक्ष ‘डेस्टीनेशन’पेक्षा काहीबाही कारणास्तव लांबलेल्या आणि विनाकारण ‘वाट पहात’ कराव्या लागलेल्या प्रवासात थट्टामस्करी करण्यात ‘वाया’ गेलेला वेळच पुढे जाऊन जास्त आठवणीत राहतो. नातेसंबंध टिकून ठेवण्यात, दृढ करण्यात हेच हलकेफुलके क्षण मोलाचे ठरतात.
+        </p>
 
-      <!-- Paragraph 7 -->
-      <p class="prose-marathi">
-        होणाऱ्या कामाला ‘वेळ’ लागत असल्याने ‘उशीर’ होत असला तरी एकंदर विलंब लांबू नये म्हणून कोणीतरी नक्कीच प्रयत्न करत असते. त्याक्षणी त्यांच्याप्रति आणि म्हणून कायमच ‘जे आहे’ त्याबद्दल मनोमन <span class="kw">कृतज्ञ</span> राहायला हवे हे प्रत्यक्ष अनुभवातून शिकण्याची ‘अवचित थांबून राहावे लागणे’ ही नामी संधी असते.
-      </p>
+        <p>
+          होणाऱ्या कामाला ‘वेळ’ लागत असल्याने ‘उशीर’ होत असला तरी एकंदर विलंब लांबू नये म्हणून कोणीतरी नक्कीच प्रयत्न करत असते. त्याक्षणी त्यांच्याप्रति आणि म्हणून कायमच ‘जे आहे’ त्याबद्दल मनोमन कृतज्ञ राहायला हवे हे प्रत्यक्ष अनुभवातून शिकण्याची ‘अवचित थांबून राहावे लागणे’ ही नामी संधी असते.
+        </p>
 
-      <!-- Paragraph 8 -->
-      <p class="prose-marathi">
-        याचा अर्थ असा नव्हे की आपण मुद्दाम थांबून राहून उशीर करायचा. ताटकळावे लागणे आणि ताटकळत ठेवणे हे दोन्हीही चूकच आहे; पण क्वचितप्रसंगी वाट पहावी लागत असेल तर लागणाऱ्या वेळेचा जाणीवपूर्वक सदुपयोग करायला काय हरकत आहे. कारण कितीही घाई केली तरी तिलाही वेळ लागतोच.
-      </p>
+        <p>
+          याचा अर्थ असा नव्हे की आपण मुद्दाम थांबून राहून उशीर करायचा. ताटकळावे लागणे आणि ताटकळत ठेवणे हे दोन्हीही चूकच आहे; पण क्वचितप्रसंगी वाट पहावी लागत असेल तर लागणाऱ्या वेळेचा जाणीवपूर्वक सदुपयोग करायला काय हरकत आहे. कारण कितीही घाई केली तरी तिलाही वेळ लागतोच.
+        </p>
 
-      <!-- Paragraph 9 -->
-      <p class="prose-marathi">
-        शेवटी एक वैयक्तिक आठवण: मोबाईलफोनपूर्व काळात <span class="kw">डेक्कन क्वीन</span>ने मुंबईहून पुण्याला येत होतो. लोणावळा स्टेशनवर गाडी बरीच रेंगाळली. रेल्वेच्या नियमित वेळापत्रकाप्रमाणे ‘राणी’च्या पाठोपाठ धावणारी लोणावळा-पुणे लोकल दुसऱ्या फलाटावर उभी होती. तेवढ्यात कोणीतरी सांगितले की ‘डीक्यू’च्या इंजिनात काही बिघाड झाला आहे. ते कानी पडताच बरीच मंडळी घाईने उड्या मारून रूळ ओलांडून लोकलकडे धावली. उपनगरीय सेवा गर्दीने फुलली आणि दख्खनची राणी मोकळी झाली.
-      </p>
+        <p>
+          शेवटी एक वैयक्तिक आठवण: मोबाईलफोनपूर्व काळात डेक्कन क्वीनने मुंबईहून पुण्याला येत होतो. लोणावळा स्टेशनवर गाडी बरीच रेंगाळली. रेल्वेच्या नियमित वेळापत्रकाप्रमाणे ‘राणी’च्या पाठोपाठ धावणारी लोणावळा-पुणे लोकल दुसऱ्या फलाटावर उभी होती. तेवढ्यात कोणीतरी सांगितले की ‘डीक्यू’च्या इंजिनात काही बिघाड झाला आहे. ते कानी पडताच बरीच मंडळी घाईने उड्या मारून रूळ ओलांडून लोकलकडे धावली. उपनगरीय सेवा गर्दीने फुलली आणि दख्खनची राणी मोकळी झाली.
+        </p>
 
-      <!-- Paragraph 10 -->
-      <p class="prose-marathi">
-        घरी पोचायला उशीर नको म्हणून आपणही तसे करावे का? असे वाटून चुळबुळ होऊ लागली. अजून काही लोकं बाहेर पडू लागली. ते पाहून एक ‘जुने आणि जाणिते’ स्थानिक हमालकाका ओरडले “कसली घाई करता, बसा जागेवर. डेक्कन पुढे गेल्याशिवाय लोकलला सिग्नल मिळणार नाही”. तसेच झाले. अनुभवाचे बोल होते त्यांचे.
-      </p>
+        <p>
+          घरी पोचायला उशीर नको म्हणून आपणही तसे करावे का? असे वाटून चुळबुळ होऊ लागली. अजून काही लोकं बाहेर पडू लागली. ते पाहून एक ‘जुने आणि जाणिते’ स्थानिक हमालकाका ओरडले “कसली घाई करता, बसा जागेवर. डेक्कन पुढे गेल्याशिवाय लोकलला सिग्नल मिळणार नाही”. तसेच झाले. अनुभवाचे बोल होते त्यांचे.
+        </p>
 
-      <!-- Paragraph 11 -->
-      <p class="prose-marathi">
-        त्यावेळेस <span class="kw">‘वाट पहावी लागली खरी; पण ताटकळावे लागले नाही’</span> हे जाणवून त्या, सामाजिक उतरंडीत फक्त ‘हमाल’ असणाऱ्या; ‘क्वीन’च्या इंजिनाचा पेंटोग्राफ सत्वर दुरुस्त करणाऱ्या आणि आजपावेतो कधी चेहराही न पाहिलेल्या पण वेळोवेळी ‘मला’ वाट पहावी लागू नये म्हणून कळत नकळत ‘माझ्या’ मदतीस आलेल्या सर्व सजीव आणि निर्जीव मित्र-तत्वज्ञ-वाटाड्या <span class="kw">‘मितवां’</span>साठी मनोमन कायम कृतज्ञ आहे.
-      </p>
+        <p>
+          त्यावेळेस ‘वाट पहावी लागली खरी; पण ताटकळावे लागले नाही’ हे जाणवून त्या, सामाजिक उतरंडीत फक्त ‘हमाल’ असणाऱ्या; ‘क्वीन’च्या इंजिनाचा पेंटोग्राफ सत्वर दुरुस्त करणाऱ्या आणि आजपावेतो कधी चेहराही न पाहिलेल्या पण वेळोवेळी ‘मला’ वाट पहावी लागू नये म्हणून कळत नकळत ‘माझ्या’ मदतीस आलेल्या सर्व सजीव आणि निर्जीव मित्र-तत्वज्ञ-वाटाड्या ‘मितवां’साठी मनोमन कायम कृतज्ञ आहे.
+        </p>
 
-      <!-- Closing Sign-off -->
-      <p class="text-right font-medium text-amber-700 dark:text-amber-400 pt-4 tracking-wide">
-        ~ बलिप्रतिपदा, दीपावली २०२५
-      </p>
+        <!-- Centered Date & Sign-off as in original document without extra labels or asterisks -->
+        <div class="text-center pt-6 pb-2 text-stone-600 dark:text-stone-400 font-medium text-base sm:text-lg tracking-wide">
+          ~ बलिप्रतिपदा, दीपावली २०२५
+        </div>
+      </div>
 
     </article>
   </main>
 
-  <div id="toast" class="fixed bottom-6 z-50 transform translate-y-12 opacity-0 pointer-events-none px-4 py-2.5 rounded-xl bg-zinc-900 text-zinc-100 dark:bg-zinc-100 dark:text-zinc-900 text-sm font-medium shadow-xl border border-zinc-700/40 dark:border-zinc-300/40 flex items-center space-x-2">
-    <svg class="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-    </svg>
-    <span id="toastMessage">लिंक कॉपी झाली!</span>
+  <div class="h-8"></div>
+
+  <!-- Toast Notification for Share / Copy fallback -->
+  <div 
+    id="shareToast" 
+    class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 translate-y-3 bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 px-5 py-2.5 rounded-full text-sm font-medium shadow-lg transition-all duration-300"
+  >
+    लिंक कॉपी झाली!
   </div>
 
+  <!-- Interactive JavaScript logic -->
   <script>
-    (function () {
-      const htmlEl = document.documentElement;
-      const themeToggleBtn = document.getElementById('themeToggleBtn');
-      const sunIcon = document.getElementById('sunIcon');
-      const moonIcon = document.getElementById('moonIcon');
-      const shareBtn = document.getElementById('shareBtn');
-      const toast = document.getElementById('toast');
-      const toastMessage = document.getElementById('toastMessage');
+    // Theme toggle handling
+    const htmlEl = document.documentElement;
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
 
-      // 1. Initial Theme Determination
-      function applyTheme(isDark) {
-        if (isDark) {
-          htmlEl.classList.add('dark');
-          sunIcon.classList.remove('hidden');
-          moonIcon.classList.add('hidden');
-        } else {
-          htmlEl.classList.remove('dark');
-          sunIcon.classList.add('hidden');
-          moonIcon.classList.remove('hidden');
-        }
-      }
-
-      // Check stored preference or system default
-      const savedTheme = localStorage.getItem('marathi_waiting_theme');
-      if (savedTheme) {
-        applyTheme(savedTheme === 'dark');
+    function applyTheme(isDark) {
+      if (isDark) {
+        htmlEl.classList.add('dark');
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
       } else {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        applyTheme(prefersDark);
+        htmlEl.classList.remove('dark');
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
       }
+    }
 
-      // Toggle Theme Listener
-      themeToggleBtn.addEventListener('click', function () {
-        const isCurrentDark = htmlEl.classList.contains('dark');
-        const nextDark = !isCurrentDark;
-        applyTheme(nextDark);
-        localStorage.setItem('marathi_waiting_theme', nextDark ? 'dark' : 'light');
-      });
+    // Auto-detect system preference or previous setting
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme');
+    const initDark = savedTheme ? savedTheme === 'dark' : prefersDark;
+    applyTheme(initDark);
 
-      // 2. Toast Trigger Helper
-      let toastTimeout;
-      function showToast(msg) {
-        if (msg) toastMessage.textContent = msg;
-        clearTimeout(toastTimeout);
-        toast.classList.remove('opacity-0', 'translate-y-12', 'pointer-events-none');
-        toast.classList.add('opacity-100', 'translate-y-0');
-        
-        toastTimeout = setTimeout(() => {
-          toast.classList.remove('opacity-100', 'translate-y-0');
-          toast.classList.add('opacity-0', 'translate-y-12', 'pointer-events-none');
-        }, 2600);
+    themeToggleBtn.addEventListener('click', () => {
+      const willBeDark = !htmlEl.classList.contains('dark');
+      applyTheme(willBeDark);
+      try {
+        localStorage.setItem('theme', willBeDark ? 'dark' : 'light');
+      } catch (e) {
+        // Handle storage quota or private window restrictions
       }
+    });
 
-      // 3. Share Action (Web Share API with fallback)
-      shareBtn.addEventListener('click', async function () {
-        const shareData = {
-          title: 'वाट पहावी लागण्यातली मज्जा..',
-          text: 'वाट पहावी लागण्यातली मज्जा.. - एक सुंदर चिंतनशील मराठी ललित निबंध.',
-          url: window.location.href,
-        };
+    // Share button handler
+    const shareBtn = document.getElementById('shareBtn');
+    const toast = document.getElementById('shareToast');
 
-        if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
-          try {
-            await navigator.share(shareData);
-          } catch (err) {
-            if (err.name !== 'AbortError') {
-              copyToClipboardFallback();
-            }
-          }
-        } else {
-          copyToClipboardFallback();
-        }
-      });
+    function showToast(msg) {
+      if (msg) toast.textContent = msg;
+      toast.classList.remove('opacity-0', 'translate-y-3');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-3');
+      }, 2500);
+    }
 
-      function copyToClipboardFallback() {
-        const urlToCopy = window.location.href;
+    shareBtn.addEventListener('click', async () => {
+      const shareData = {
+        title: 'वाट पहावी लागण्यातली मज्जा..',
+        text: 'वाट पहावी लागण्यातली मज्जा.. - एक मननीय अनुभव',
+        url: window.location.href,
+      };
+
+      if (navigator.share) {
         try {
-          // Standard modern copy attempt
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(urlToCopy).then(
-              () => showToast('लिंक कॉपी झाली!'),
-              () => execCommandCopy(urlToCopy)
-            );
-          } else {
-            execCommandCopy(urlToCopy);
-          }
-        } catch (e) {
-          execCommandCopy(urlToCopy);
-        }
-      }
-
-      function execCommandCopy(text) {
-        const tempInput = document.createElement('input');
-        tempInput.setAttribute('value', text);
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        try {
-          document.execCommand('copy');
-          showToast('लिंक कॉपी झाली!');
+          await navigator.share(shareData);
+          return;
         } catch (err) {
-          showToast('कृपया URL कॉपी करा');
+          // Fall back to copy link if user aborted or share was disallowed
         }
-        document.body.removeChild(tempInput);
       }
-    })();
+
+      // Fallback copy using reliable textarea execCommand
+      try {
+        const dummy = document.createElement('textarea');
+        dummy.value = window.location.href;
+        dummy.setAttribute('readonly', '');
+        dummy.style.position = 'absolute';
+        dummy.style.left = '-9999px';
+        document.body.appendChild(dummy);
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+        showToast('लिंक कॉपी झाली!');
+      } catch (e) {
+        showToast('लिंक कॉपी करता आली नाही');
+      }
+    });
   </script>
 </body>
 </html>
